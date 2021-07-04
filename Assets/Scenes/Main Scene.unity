@@ -9334,7 +9334,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1288
+  m_Name: pb_Mesh-1238
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10412,6 +10412,7 @@ MonoBehaviour:
   fallSpeed: 0.19
   jumpTime: 0.4
   jumpVector: {x: 0, y: 500, z: 0}
+  jumpForwardMultiplier: 15
   jumpForceMode: 0
   fallForceMode: 0
   moveForceMode: 0

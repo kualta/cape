@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class FallTower : MonoBehaviour
 {
     [SerializeField]
     private Rigidbody rigidBody;
@@ -19,9 +19,9 @@ public class Tower : MonoBehaviour
 
     IEnumerator Fall() {
         int x = 1;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 1; i <= 13; ++i) {
             x++;
-            transform.Rotate(x, 0, 0);
+            transform.Rotate(i, 0, 0);
             yield return new WaitForSeconds(0.01f);
         }
 

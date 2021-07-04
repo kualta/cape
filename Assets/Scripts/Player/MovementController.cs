@@ -12,8 +12,10 @@ public class MovementController : MonoBehaviour
     public float runSpeed = 10f;
     public float fallSpeed = 6f;
     public float jumpTime = 2f;
+
     [Space(5)]
     public Vector3 jumpVector;
+    public float jumpForwardMultiplier = 15f;
 
     [Space(10)]
     public ForceMode jumpForceMode;
@@ -154,16 +156,14 @@ public class MovementController : MonoBehaviour
         rigidBody.velocity = Vector3.zero;
         float timer = 0.1f;
 
-        while(controller.input.jumpPressed && timer < jumpTime)
-        {
-
+        while(controller.input.jumpPressed && timer < jumpTime) {
             if ( timer > jumpTime / 2 ) {
                 jumping = false;
             }
 
             float proportionCompleted = timer / jumpTime;
             Vector3 currentJumpVector = Vector3.Lerp(jumpVector, Vector3.zero, proportionCompleted);
-            currentJumpVector += moveDirection * 25;
+            currentJumpVector += moveDirection * jumpForwardMultiplier;
             rigidBody.AddForce(currentJumpVector);
             timer += Time.deltaTime;
             yield return null;
