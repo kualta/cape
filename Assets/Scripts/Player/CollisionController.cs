@@ -10,10 +10,14 @@ public class CollisionController : MonoBehaviour
     [SerializeField]
     internal Collider characterCollider;
 
+    public bool stairForward = false;
+    public LayerMask layerMask;
     public bool isGrounded;
+    public bool wasGrounded;
 
-    void Update() {
+    void FixedUpdate() {
         CheckForGround();
+        CheckForStairs();
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -27,12 +31,27 @@ public class CollisionController : MonoBehaviour
         float amount = Random.Range(1, 34);
         controller.ReduceHealth(amount);
     }
+    void CheckForStairs() {
+        Vector3 rayOrigin = transform.position + controller.movement.moveDirection.normalized * 0.6f + Vector3.up * 0.8f;
+        Vector3 rayDirection = Vector3.down;
+        float rayLenght = 0.6f;
 
+        if (controller.movement.moveDirection != Vector3.zero) {
+            stairForward = Physics.Raycast(rayOrigin, rayDirection, rayLenght, layerMask);
+        } else {
+            stairForward = false;
+        }
+
+        if ( stairForward ) {
+            Debug.DrawRay(rayOrigin, rayDirection * rayLenght, Color.red);
+        }
+    }
     void CheckForGround() {
         float distanceToGround = characterCollider.bounds.extents.y;
 
-        Debug.DrawRay(transform.position + Vector3.up, Vector3.down * (distanceToGround + 0.1f));
+        Debug.DrawRay(transform.position + Vector3.up, Vector3.down * (distanceToGround + 0.01f));
 
-        isGrounded = Physics.Raycast(transform.position + Vector3.up, Vector3.down, distanceToGround + 0.1f);
+        wasGrounded = isGrounded;
+        isGrounded = Physics.Raycast(transform.position + Vector3.up, Vector3.down, distanceToGround + 0.01f);
     }
 }

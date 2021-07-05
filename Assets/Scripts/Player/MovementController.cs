@@ -7,6 +7,9 @@ public class MovementController : MonoBehaviour
     [SerializeField]
     internal PlayerController controller;
 
+    [SerializeField]
+    internal CollisionController collision;
+
     [Space(10)]
     public float walkSpeed = 6f;
     public float runSpeed = 10f;
@@ -27,20 +30,20 @@ public class MovementController : MonoBehaviour
     [Space(10)]
     public Vector3 moveDirection = Vector3.zero;
     public float currentFallSpeed = 0f;
+    public bool jumping = false;
+    public bool falling = false;
 
     internal Rigidbody rigidBody;
     internal float speed;
     internal CapsuleCollider characterCollider;
-    internal bool isGrounded;
     internal bool stairForward;
     internal Transform cameraTransform;
     internal Vector3 rightAxis;
     internal Vector3 forwardAxis;
-    internal bool jumping;
 
 
     public void OnJump() {
-        if ( isGrounded ) {
+        if ( collision.isGrounded ) {
             jumping = true;
             controller.animation.OnJump();
             StartCoroutine(Jump());
@@ -60,6 +63,7 @@ public class MovementController : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         characterCollider = GetComponent<CapsuleCollider>();
+        collision = GetComponent<CollisionController>();
         cameraTransform = controller.camera.camera.transform;
         OnWalk();
     }
@@ -71,8 +75,6 @@ public class MovementController : MonoBehaviour
 
     void FixedUpdate()
     {
-        HandleGround();
-
         moveDirection = Vector3.zero;
 
         rightAxis = cameraTransform.right;
@@ -84,7 +86,7 @@ public class MovementController : MonoBehaviour
         moveDirection += Vector3.ClampMagnitude(userInput, 1f);
         moveDirection *= speed;
 
-        if ( isGrounded ) {
+        if ( collision.isGrounded ) {
             currentFallSpeed = 0f;
         } else {
             currentFallSpeed += Physics.gravity.y * fallSpeed;
@@ -101,7 +103,7 @@ public class MovementController : MonoBehaviour
 
     void UpdateAnimation() {
 
-        if ( jumping || !isGrounded ) {
+        if ( jumping || !collision.isGrounded ) {
             return;
         }
 
@@ -122,36 +124,6 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    void HandleGround() {
-        CheckForStairs();
-        CheckForGround();
-    }
-
-    void CheckForGround() {
-        float distanceToGround = characterCollider.bounds.extents.y;
-
-        Debug.DrawRay(transform.position + Vector3.up, Vector3.down * (distanceToGround - 0.8f) );
-
-        isGrounded = Physics.Raycast(transform.position + Vector3.up, Vector3.down, distanceToGround - 0.8f);
-    }
-
-    void CheckForStairs() {
-        Vector3 rayOrigin = transform.position + moveDirection.normalized * 0.6f + Vector3.up * 0.8f;
-        Vector3 rayDirection = Vector3.down;
-        float rayLenght = 0.6f;
-
-        if (moveDirection != Vector3.zero) {
-            stairForward = Physics.Raycast(rayOrigin, rayDirection, rayLenght, layerMask);
-        } else {
-            stairForward = false;
-        }
-
-        if ( stairForward ) {
-            Debug.DrawRay(rayOrigin, rayDirection * rayLenght, Color.red);
-        }
-    }
-
-
     IEnumerator Jump() {
         rigidBody.velocity = Vector3.zero;
         float timer = 0.1f;
@@ -164,7 +136,9 @@ public class MovementController : MonoBehaviour
             float proportionCompleted = timer / jumpTime;
             Vector3 currentJumpVector = Vector3.Lerp(jumpVector, Vector3.zero, proportionCompleted);
             currentJumpVector += moveDirection * jumpForwardMultiplier;
+
             rigidBody.AddForce(currentJumpVector);
+
             timer += Time.deltaTime;
             yield return null;
         }

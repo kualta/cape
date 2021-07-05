@@ -25,6 +25,6 @@ public class AnimationController : MonoBehaviour
     }
 
     void Start() {
-        controller = transform.parent.gameObject.GetComponent<PlayerController>();
+        controller = GetComponent<PlayerController>();
     }
 }
