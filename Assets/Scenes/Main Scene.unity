@@ -11671,7 +11671,7 @@ CapsuleCollider:
   m_Radius: 0.85
   m_Height: 4.4
   m_Direction: 1
-  m_Center: {x: 0, y: 2.08, z: 0}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!54 &919132149090734126
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11787,7 +11787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 919132149090734132}
   camera: {fileID: 1940940859}
-  cameraOffset: {x: -10, y: 10, z: -10}
+  cameraOffset: {x: -12, y: 8, z: -12}
 --- !u!114 &919132149090734132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11810,7 +11810,7 @@ MonoBehaviour:
   - {fileID: 0}
   standardMaterial: {fileID: 2100000, guid: f79b2ee38ccfb237381b80104a54ac90, type: 2}
   damageMaterial: {fileID: 2100000, guid: f8eeb8b184866e32d8b5819879c6b77e, type: 2}
-  hitPoints: 9999
+  hitPoints: 9999999
 --- !u!1 &1727285258222063308
 GameObject:
   m_ObjectHideFlags: 0
