@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Vaporwave grid
+  m_Name: Vaporwave grid Red
   m_Shader: {fileID: -6465566751694194690, guid: c94a8a1607921491483f9b70029630fe, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -74,7 +74,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_C17ECCE6: 0
-    - Vector1_D18F65C2: 0.986
+    - Vector1_D18F65C2: 0.88
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -98,7 +98,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_64ECF9E1: {r: 1.1193359, g: 0.21647531, b: 0.21647531, a: 0}
-    - Color_FCD1A1F7: {r: 5.061742, g: 0.59690344, b: 4.3604574, a: 0}
+    - Color_FCD1A1F7: {r: 5.061742, g: 0.6095291, b: 0.90814114, a: 0}
     - Vector2_1E9F2F3B: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}

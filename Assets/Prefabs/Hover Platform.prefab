@@ -341,3 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35051455f69c8d54e95bca2a6c47c01c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activated: 0
+  regularMaterial: {fileID: 2100000, guid: 3ed64f95c64b39ff8ab98bddae8f4ca5, type: 2}
+  activatedMaterial: {fileID: 2100000, guid: c8718716d63a21d4092664cd2320b4d6, type: 2}
+  disabledMaterial: {fileID: 2100000, guid: 3890eb8f99e34a5478460909b50e5fcb, type: 2}

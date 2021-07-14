@@ -5,8 +5,8 @@ using UnityEngine;
 public class HomingRocket : Rocket
 {
     public Transform target;
-    [Space(10)]
 
+    [Space(10)]
     public float minRotationSpeed;
     public float maxRotationSpeed;
     public float rotationSpeed;
@@ -16,17 +16,15 @@ public class HomingRocket : Rocket
     public bool released;
 
     public void Release() {
-        released = true;
         speedMultiplier = 4f;
+        released = true;
     }
 
-    public void LockTarget(Transform newTarget) {
+    public void LockOnTarget(Transform newTarget) {
         released = false;
         speedMultiplier = 1f;
 
-        if ( !target ) {
-            target = newTarget;
-        }
+        target = newTarget;
     }
 
     protected void SetParameters() {
@@ -74,7 +72,7 @@ public class HomingRocket : Rocket
         if (distanceToTarget < releaseDistance && !released) {
             Release();
         } else if (distanceToTarget > releaseDistance * 3f && released) {
-            LockTarget(target);
+            LockOnTarget(target);
         }
     }
 }

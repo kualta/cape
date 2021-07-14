@@ -13,12 +13,21 @@ public class HoverPlatform : MonoBehaviour
     public Material disabledMaterial;
     private void OnCollisionEnter(Collision collision)
     {
-        activated = true;
-        ChangeMaterialTo(activatedMaterial);
-        StartCoroutine("DisableAfterSeconds", 2);
+        if ( !activated )
+        {
+            activated = true;
+            ChangeMaterialTo(activatedMaterial);
+            StartCoroutine("FreezeAfterSeconds", 1.2f);
+        }
     }
+    private IEnumerator FreezeAfterSeconds(float seconds) 
+    {
+        yield return new WaitForSeconds(seconds);
 
-    void DisableMovement()
+        FreezeMovement();
+        ChangeMaterialTo(disabledMaterial);
+    }
+    void FreezeMovement()
     {
         GetComponent<Rigidbody>().isKinematic = true;
     }
@@ -26,13 +35,4 @@ public class HoverPlatform : MonoBehaviour
     {
         GetComponent<Renderer>().material = material;
     }
-
-    private IEnumerator DisableAfterSeconds(float seconds = 3) 
-    {
-        yield return new WaitForSeconds(seconds);
-
-        DisableMovement();
-        ChangeMaterialTo(disabledMaterial);
-    }
-
 }
