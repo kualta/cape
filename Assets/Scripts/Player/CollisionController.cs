@@ -47,11 +47,11 @@ public class CollisionController : MonoBehaviour
         }
     }
     void CheckForGround() {
-        float distanceToGround = characterCollider.bounds.extents.y;
+        float distanceToGround = characterCollider.bounds.extents.y - 0.95f;
 
-        Debug.DrawRay(transform.position + Vector3.up, Vector3.down * (distanceToGround + 0.01f));
+        Debug.DrawRay(transform.position + Vector3.up, Vector3.down * (distanceToGround), Color.green);
 
         wasGrounded = isGrounded;
-        isGrounded = Physics.Raycast(transform.position + Vector3.up, Vector3.down, distanceToGround + 0.01f);
+        isGrounded = Physics.Raycast(transform.position + Vector3.up, Vector3.down, distanceToGround);
     }
 }
